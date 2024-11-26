@@ -1,0 +1,48 @@
+from pyvis.network import Network
+
+# Define nodes and edges
+nodes = {
+    "Regulatory Compliance": "Determine whether your activities relate to E-Money or Crypto-Asset services.",
+    "Identify Activity Type": "Classify the activity type: E-Money issuance or Crypto-Asset services.",
+    "Directive 2009/110/EC": "E-Money issuers must comply with Directive 2009/110/EC.",
+    "MiCA Compliance": "Crypto-asset services fall under MiCA Articles 3, 7, 10.",
+    "EMI Authorization": "Obtain authorization for e-money issuance under Article 2.",
+    "Capital Safeguards": "Maintain capital reserves per Articles 10-11.",
+    "Periodic Record-Keeping": "Ensure record-keeping under Article 16.",
+    "AML/CFT Compliance": "Implement AML/CFT measures as per Article 23.",
+    "Transaction Monitoring & Reporting": "Monitor transactions and report suspicious activity (Articles 24-25).",
+    "Consumer Protection Measures": "Ensure fair practices and transparency (Article 41).",
+    "Annual Regulatory Filings": "Submit filings under Article 30.",
+    "Audit and Risk Management": "Review risks and systems periodically (Articles 41-42)."
+}
+
+edges = [
+    ("Regulatory Compliance", "Identify Activity Type"),
+    ("Identify Activity Type", "Directive 2009/110/EC"),
+    ("Identify Activity Type", "MiCA Compliance"),
+    ("Directive 2009/110/EC", "EMI Authorization"),
+    ("EMI Authorization", "Capital Safeguards"),
+    ("Capital Safeguards", "Periodic Record-Keeping"),
+    ("MiCA Compliance", "AML/CFT Compliance"),
+    ("AML/CFT Compliance", "Transaction Monitoring & Reporting"),
+    ("Transaction Monitoring & Reporting", "Consumer Protection Measures"),
+    ("Periodic Record-Keeping", "Annual Regulatory Filings"),
+    ("Consumer Protection Measures", "Annual Regulatory Filings"),
+    ("Annual Regulatory Filings", "Audit and Risk Management")
+]
+
+# Create an interactive network graph
+net = Network(height='750px', width='100%', directed=True)
+
+# Add nodes and edges with tooltips
+for node, note in nodes.items():
+    net.add_node(node, label=node, title=note, color="lightblue", shape="ellipse")
+
+for edge in edges:
+    net.add_edge(*edge)
+
+# Add physics and interaction
+net.toggle_physics(True)
+
+# Save the interactive graph
+net.save_graph("Interactive_Compliance_Workflow.html")
